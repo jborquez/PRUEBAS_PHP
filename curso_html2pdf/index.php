@@ -2,7 +2,8 @@
 require __DIR__.'/vendor/autoload.php';
 
 use Spipu\Html2Pdf\Html2Pdf;
-    //Recoger el contenido del otro archivo
+
+    //Recoger el contenido de otro archivo
 ob_start(); // Función de PHP para recoger con un buffer lo que genera un HTML según elsiguiente 'require_once'
 require_once 'print_view.php';
 $html = ob_get_clean(); // Almaceno el resultado del buffer 'ob_start()' en una variable
