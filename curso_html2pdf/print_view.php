@@ -24,7 +24,7 @@
     background: #f71d07
   }
   .azul{
-    background: #0e73f9
+    background: black;
   }
   .amarilla{
     background: #e3e65b
