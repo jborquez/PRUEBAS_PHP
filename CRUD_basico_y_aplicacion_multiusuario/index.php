@@ -1,5 +1,44 @@
 <?php
 include("Connection/db_asignaturas.php");
+if (!empty($_POST)) {
+  // ***** VERIFICAMOS SI SE INTRODUCE CODIGO MALICIOSO EN EL FORMULARIO *****
+  $codigo = mysqli_real_escape_string($conexion,$_POST['codigo']);
+  $asignatura = mysqli_real_escape_string($conexion,$_POST['asignatura']);
+  $nota = mysqli_real_escape_string($conexion,$_POST['nota']);
+  // ***** VERIFICAMOS SI LA SIGNATURA YA EXISTE EN LA BASE DE DATOS *****
+  $verificarasignatura = "SELECT * FROM asignaturas WHERE codigoasignatura ='$codigo' OR nombreasignatura = '$asignatura'";
+  $taonota = $conexion->query($verificarasignatura);
+  $tuplas = $taonota->num_rows;
+
+  if ($tuplas > 0) {
+    echo "
+    <script>
+      alert('Ya está la asignatura pu gil...');
+      window.location = 'index.php';
+    </script>
+    ";
+  }
+  else {
+    $sqlinsertarasignatura = "INSERT INTO asignaturas(codigoasignatura,nombreasignatura,nota) VALUES('$codigo','$asignatura','$nota')";
+    $queryinsertarasignatura = $conexion->query($sqlinsertarasignatura);
+    if ($queryinsertarasignatura > 0) {
+      echo "
+      <script>
+        alert('La asignatura se ha ingresado con éxito!');
+        window.location = 'index.php';
+      </script>
+      ";
+    }
+    else {
+      echo "
+      <script>
+        alert('ERROR! -- El ingreso no fue realizado');
+        window.location = 'index.php';
+      </script>
+      ";
+    }
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,7 +52,7 @@ include("Connection/db_asignaturas.php");
   <h3 align="center">Registro de asignaturas</h3>
   <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
     Código: <input type="text" name = "codigo" placeholder="CD101" required>
-    Asignatura: <input type="text" name = "nombre" placeholder="Programacion" required>
+    Asignatura: <input type="text" name = "asignatura" placeholder="Programacion" required>
     Nota: <input type="number" name = "nota" placeholder="99" required>
     <input type="submit" name="guardar" value="Guardar">
   </form>
