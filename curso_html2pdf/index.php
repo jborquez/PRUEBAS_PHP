@@ -19,3 +19,4 @@ if (isset($_POST['crear'])) {
     <input type="text" name="titulo" value="" placeholder="Titulo"> <!-- Para llamada a print_view.php y extraer el título -->
     <input type="submit" name="crear" value="Crear un PDF">
   </form>
+  <li>fg</li>
