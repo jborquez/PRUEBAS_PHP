@@ -30,7 +30,7 @@
     background: #e3e65b
   }
   .verde{
-    background: #80dd64
+    background: rgba(#57c966, 0.89)
   }
   #cabecera img{
     float: right;
